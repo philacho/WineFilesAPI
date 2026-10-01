@@ -1,4 +1,4 @@
-using WineFilesApi.Extensions;
+﻿using WineFilesApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,8 +6,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
-builder.Services.AddFoxProApi(builder.Configuration);
+builder.Services.AddWineFilesApi(builder.Configuration);   // ← was AddFoxProApi
 
 var app = builder.Build();
-app.UseFoxProApiPipeline();
+app.UseWineFilesApiPipeline();                              // ← was UseFoxProApiPipeline
 app.Run();

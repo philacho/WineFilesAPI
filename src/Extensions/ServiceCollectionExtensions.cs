@@ -7,19 +7,12 @@ namespace WineFilesApi.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    /// <summary>
-    /// Registers infrastructure services (data access, connection factories).
-    /// </summary>
-    public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
         services.AddSingleton<FoxProConnectionFactory>();
 
         services.AddScoped<IBatchRepository, BatchRepository>();
         services.AddScoped<IBlendRepository, BlendRepository>();
-        services.AddScoped<IQueryRepository, QueryRepository>();
-
-        // --- PM metadata ---
         services.AddScoped<IPmDbfRepository, PmDbfRepository>();
         services.AddScoped<IPmFieldRepository, PmFieldRepository>();
         services.AddScoped<IPmIndexRepository, PmIndexRepository>();
@@ -27,17 +20,10 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    /// <summary>
-    /// Registers application services (business logic).
-    /// </summary>
-    public static IServiceCollection AddApplication(
-        this IServiceCollection services)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddScoped<IBatchService, BatchService>();
         services.AddScoped<IBlendService, BlendService>();
-        services.AddScoped<IQueryService, QueryService>();
-
-        // --- PM metadata ---
         services.AddScoped<IPmDbfService, PmDbfService>();
         services.AddScoped<IPmFieldService, PmFieldService>();
         services.AddScoped<IPmIndexService, PmIndexService>();
@@ -45,12 +31,8 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    /// <summary>
-    /// Registers the CORS policy from configuration.
-    /// </summary>
     public static IServiceCollection AddDefaultCors(
-        this IServiceCollection services,
-        IConfiguration configuration)
+        this IServiceCollection services, IConfiguration configuration)
     {
         var origins = configuration
             .GetSection("Cors:AllowedOrigins")
@@ -70,16 +52,9 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    /// <summary>
-    /// Registers all FoxPro API services (infrastructure + application + CORS).
-    /// </summary>
-    public static IServiceCollection AddFoxProApi(
-        this IServiceCollection services,
-        IConfiguration configuration)
-    {
-        return services
-            .AddInfrastructure()
-            .AddApplication()
-            .AddDefaultCors(configuration);
-    }
+    public static IServiceCollection AddWineFilesApi(
+        this IServiceCollection services, IConfiguration configuration)
+        => services.AddInfrastructure()
+                   .AddApplication()
+                   .AddDefaultCors(configuration);
 }

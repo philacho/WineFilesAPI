@@ -4,41 +4,53 @@ using WineFilesApi.Domain.Entities;
 
 namespace WineFilesApi.Application.Services;
 
-public sealed class BatchService : IBatchService
+public sealed class BatchService(IBatchRepository repo) : IBatchService
 {
-    private readonly IBatchRepository _repo;
-
-    public BatchService(IBatchRepository repo) => _repo = repo;
-
-    public async Task<IReadOnlyList<BatchDto>> GetAsync(string? search, CancellationToken ct)
-        => (await _repo.GetAsync(search, ct)).Select(Map).ToList();
-
-    public async Task<BatchDto?> GetByIdAsync(string batch, CancellationToken ct)
+    private static readonly FieldSelector Fields = new(new Dictionary<string, string>
     {
-        var item = await _repo.GetByIdAsync(batch, ct);
+        ["batch"] = "FCBATCH",
+        ["description"] = "FCDESCRIPT",
+        ["active"] = "FCACTIVE",
+        ["userLock"] = "FCUSERLOCK"
+    });
+
+    public async Task<IReadOnlyList<BatchDto>> GetAsync(string? search, string? fields, CancellationToken ct)
+    {
+        var columns = Fields.Resolve(fields);
+        var rows = await repo.GetAsync(search, columns, ct);
+        return rows.Select(Map).ToList();
+    }
+
+    public async Task<BatchDto?> GetByIdAsync(string batch, string? fields, CancellationToken ct)
+    {
+        var columns = Fields.Resolve(fields);
+        var item = await repo.GetByIdAsync(batch, columns, ct);
         return item is null ? null : Map(item);
     }
 
-    public Task<bool> InsertAsync(UpsertBatchDto request, CancellationToken ct)
-        => _repo.InsertAsync(new Batch {
-            BatchCode = request.Batch.Trim(),
-            Description = request.Description.Trim(),
-            Active = request.Active.Trim(),
-            UserLock = request.UserLock.Trim()
-        }, ct);
+    public Task<bool> InsertAsync(UpsertBatchDto r, CancellationToken ct)
+        => repo.InsertAsync(ToEntity(r), ct);
 
-    public Task<bool> UpdateAsync(string batch, UpsertBatchDto request, CancellationToken ct)
-        => _repo.UpdateAsync(new Batch {
-            BatchCode = batch.Trim(),
-            Description = request.Description.Trim(),
-            Active = request.Active.Trim(),
-            UserLock = request.UserLock.Trim()
-        }, ct);
+    public Task<bool> UpdateAsync(string batch, UpsertBatchDto r, CancellationToken ct)
+    {
+        var item = ToEntity(r);
+        item.BatchCode = batch.Trim();
+        return repo.UpdateAsync(item, ct);
+    }
 
     public Task<bool> DeleteAsync(string batch, CancellationToken ct)
-        => _repo.DeleteAsync(batch.Trim(), ct);
+        => repo.DeleteAsync(batch.Trim(), ct);
 
-    private static BatchDto Map(Batch x) => new() {
+    private static Batch ToEntity(UpsertBatchDto r) => new()
+    {
+        BatchCode = r.Batch.Trim(),
+        Description = r.Description.Trim(),
+        Active = r.Active.Trim(),
+        UserLock = r.UserLock.Trim()
+    };
+
+    private static BatchDto Map(Batch x) => new()
+    {
         Batch = x.BatchCode,
         Description = x.Description,
         Active = x.Active.Equals("Y", StringComparison.OrdinalIgnoreCase),

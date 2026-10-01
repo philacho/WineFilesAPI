@@ -4,7 +4,7 @@ namespace WineFilesApi.Extensions;
 
 public static class ApplicationBuilderExtensions
 {
-    public static WebApplication UseFoxProApiPipeline(this WebApplication app)
+    public static WebApplication UseWineFilesApiPipeline(this WebApplication app)
     {
         app.UseMiddleware<ExceptionHandlingMiddleware>();
 

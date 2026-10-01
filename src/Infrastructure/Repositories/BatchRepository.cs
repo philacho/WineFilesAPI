@@ -6,20 +6,15 @@ using WineFilesApi.Infrastructure.Data;
 
 namespace WineFilesApi.Infrastructure.Repositories;
 
-public sealed class BatchRepository : IBatchRepository
+public sealed class BatchRepository(FoxProConnectionFactory factory) : IBatchRepository
 {
-    private readonly FoxProConnectionFactory _factory;
-
-    public BatchRepository(FoxProConnectionFactory factory) => _factory = factory;
-
-    public async Task<IReadOnlyList<Batch>> GetAsync(string? search, CancellationToken ct)
+    public async Task<IReadOnlyList<Batch>> GetAsync(
+        string? search, IReadOnlyList<string> columns, CancellationToken ct)
     {
-        const string baseSql = """
-            SELECT FCBATCH, FCDESCRIPT, FCACTIVE, FCUSERLOCK
-            FROM batch
-            """;
+        var selectList = string.Join(", ", columns);
+        var baseSql = $"SELECT {selectList} FROM batch";
 
-        await using var cn = _factory.CreateConnection();
+        await using var cn = factory.CreateConnection();
         await cn.OpenAsync(ct);
 
         using var cmd = new OleDbCommand(
@@ -30,34 +25,31 @@ public sealed class BatchRepository : IBatchRepository
 
         if (!string.IsNullOrWhiteSpace(search))
         {
-            var value = $"%{search.Trim()}%";
-            cmd.Parameters.Add(new OleDbParameter { OleDbType = OleDbType.VarChar, Value = value });
-            cmd.Parameters.Add(new OleDbParameter { OleDbType = OleDbType.VarChar, Value = value });
+            var v = $"%{search.Trim()}%";
+            cmd.Parameters.Add(OleDbParameters.VarChar(v));
+            cmd.Parameters.Add(OleDbParameters.VarChar(v));
         }
 
         using var reader = await cmd.ExecuteReaderAsync(ct);
         var list = new List<Batch>();
-
-        while (reader is not null && await reader.ReadAsync(ct))
-            list.Add(Map(reader));
-
+        while (await reader.ReadAsync(ct))
+            list.Add(MapDynamic(reader, columns));
         return list;
     }
 
-    public async Task<Batch?> GetByIdAsync(string batch, CancellationToken ct)
+    public async Task<Batch?> GetByIdAsync(
+        string batch, IReadOnlyList<string> columns, CancellationToken ct)
     {
-        const string sql = """
-            SELECT FCBATCH, FCDESCRIPT, FCACTIVE, FCUSERLOCK
-            FROM batch WHERE FCBATCH = ?
-            """;
+        var selectList = string.Join(", ", columns);
+        var sql = $"SELECT {selectList} FROM batch WHERE FCBATCH = ?";
 
-        await using var cn = _factory.CreateConnection();
+        await using var cn = factory.CreateConnection();
         await cn.OpenAsync(ct);
         using var cmd = new OleDbCommand(sql, cn);
-        cmd.Parameters.Add(new OleDbParameter { OleDbType = OleDbType.VarChar, Value = batch });
+        cmd.Parameters.Add(OleDbParameters.VarChar(batch));
 
         using var reader = await cmd.ExecuteReaderAsync(ct);
-        return reader is not null && await reader.ReadAsync(ct) ? Map(reader) : null;
+        return await reader.ReadAsync(ct) ? MapDynamic(reader, columns) : null;
     }
 
     public async Task<bool> InsertAsync(Batch x, CancellationToken ct)
@@ -66,10 +58,14 @@ public sealed class BatchRepository : IBatchRepository
             INSERT INTO batch (FCBATCH, FCDESCRIPT, FCACTIVE, FCUSERLOCK)
             VALUES (?, ?, ?, ?)
             """;
-        await using var cn = _factory.CreateConnection();
+
+        await using var cn = factory.CreateConnection();
         await cn.OpenAsync(ct);
         using var cmd = new OleDbCommand(sql, cn);
-        Add(cmd, x);
+        cmd.Parameters.Add(OleDbParameters.VarChar(x.BatchCode));
+        cmd.Parameters.Add(OleDbParameters.VarChar(x.Description));
+        cmd.Parameters.Add(OleDbParameters.VarChar(x.Active));
+        cmd.Parameters.Add(OleDbParameters.VarChar(x.UserLock));
         return await cmd.ExecuteNonQueryAsync(ct) > 0;
     }
 
@@ -79,46 +75,43 @@ public sealed class BatchRepository : IBatchRepository
             UPDATE batch SET FCDESCRIPT = ?, FCACTIVE = ?, FCUSERLOCK = ?
             WHERE FCBATCH = ?
             """;
-        await using var cn = _factory.CreateConnection();
+
+        await using var cn = factory.CreateConnection();
         await cn.OpenAsync(ct);
         using var cmd = new OleDbCommand(sql, cn);
-        Add(cmd, x.Description);
-        Add(cmd, x.Active);
-        Add(cmd, x.UserLock);
-        Add(cmd, x.BatchCode);
+        cmd.Parameters.Add(OleDbParameters.VarChar(x.Description));
+        cmd.Parameters.Add(OleDbParameters.VarChar(x.Active));
+        cmd.Parameters.Add(OleDbParameters.VarChar(x.UserLock));
+        cmd.Parameters.Add(OleDbParameters.VarChar(x.BatchCode));
         return await cmd.ExecuteNonQueryAsync(ct) > 0;
     }
 
     public async Task<bool> DeleteAsync(string batch, CancellationToken ct)
     {
         const string sql = "DELETE FROM batch WHERE FCBATCH = ?";
-        await using var cn = _factory.CreateConnection();
+        await using var cn = factory.CreateConnection();
         await cn.OpenAsync(ct);
         using var cmd = new OleDbCommand(sql, cn);
-        Add(cmd, batch);
+        cmd.Parameters.Add(OleDbParameters.VarChar(batch));
         return await cmd.ExecuteNonQueryAsync(ct) > 0;
     }
 
-    // ✅ Changed: DbDataReader instead of OleDbDataReader
-    private static Batch Map(DbDataReader r) => new()
+    private static Batch MapDynamic(DbDataReader r, IReadOnlyList<string> columns)
     {
-        BatchCode = S(r["FCBATCH"]),
-        Description = S(r["FCDESCRIPT"]),
-        Active = S(r["FCACTIVE"]),
-        UserLock = S(r["FCUSERLOCK"])
-    };
-
-    private static string S(object value) =>
-        value == DBNull.Value ? string.Empty : Convert.ToString(value) ?? string.Empty;
-
-    private static void Add(OleDbCommand cmd, string value) =>
-        cmd.Parameters.Add(new OleDbParameter { OleDbType = OleDbType.VarChar, Value = value ?? string.Empty });
-
-    private static void Add(OleDbCommand cmd, Batch x)
-    {
-        Add(cmd, x.BatchCode);
-        Add(cmd, x.Description);
-        Add(cmd, x.Active);
-        Add(cmd, x.UserLock);
+        var b = new Batch();
+        foreach (var col in columns)
+        {
+            switch (col.ToUpperInvariant())
+            {
+                case "FCBATCH": b.BatchCode = S(r[col]); break;
+                case "FCDESCRIPT": b.Description = S(r[col]); break;
+                case "FCACTIVE": b.Active = S(r[col]); break;
+                case "FCUSERLOCK": b.UserLock = S(r[col]); break;
+            }
+        }
+        return b;
     }
+
+    private static string S(object v) =>
+        v == DBNull.Value ? string.Empty : Convert.ToString(v) ?? string.Empty;
 }
