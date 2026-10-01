@@ -17,6 +17,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPmFieldRepository, PmFieldRepository>();
         services.AddScoped<IPmIndexRepository, PmIndexRepository>();
 
+        services.AddScoped<IDataRepository, DataRepository>();
+
         return services;
     }
 
@@ -27,6 +29,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPmDbfService, PmDbfService>();
         services.AddScoped<IPmFieldService, PmFieldService>();
         services.AddScoped<IPmIndexService, PmIndexService>();
+
+        services.AddScoped<IDataRepository, DataRepository>();
 
         return services;
     }
