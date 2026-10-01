@@ -40,8 +40,8 @@ secrets.json
 *.pfx
 *.p12
 
-# ---------- FoxPro data files ----------
-Data/
+# ---------- FoxPro data files (root only) ----------
+/Data/
 *.dbf
 *.fpt
 *.cdx
