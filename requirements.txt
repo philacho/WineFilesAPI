@@ -1,0 +1,70 @@
+Required
+
+.NET SDK	8.0 (matches your project)	Only needed to build; not needed at runtime if self-contained
+.NET Runtime	8.0 ASP.NET Core Runtime	Needed if the app is framework-dependent
+Windows OS	Windows 10 / Server 2016+	Since you use VFPOLEDB, Windows is mandatory
+VC++ Redistributable	2015-2022 (x86 AND x64)	Needed if the VFP provider or .NET dependencies require it
+
+A URL configured in appsettings.json — e.g., "Urls": "http://0.0.0.0:5000"
+Port 5000+ that's free (no admin required for this range)
+Windows (already required because of VFPOLEDB)
+Firewall rule — only if accessed from other machines
+Certificate — only if using HTTPS
+No admin needed for http://0.0.0.0:5000.
+
+3. Port Requirements
+The port must be free — nothing else listening on it
+The port must not require admin — ports < 1024 need elevation on Windows; use 5000+
+The firewall must allow inbound if accessed from another machine
+
+Check if a port is free
+powershell
+Get-NetTCPConnection -LocalPort 5000 -ErrorAction SilentlyContinue
+No output = port is free. Anything printed = something else is using it.
+
+
+Step 1 — Create the Windows Service
+Use sc.exe (built into Windows — no extra tools needed). Open PowerShell as Administrator.
+
+powershell
+# Stop any existing service (if upgrading)
+sc.exe stop WineFilesApi 2>$null
+sc.exe delete WineFilesApi 2>$null
+
+# Create the service
+sc.exe create WineFilesApi `
+    binPath= "C:\Services\WineFilesApi\WineFilesApi.exe" `
+    start= auto `
+    DisplayName= "WineFiles API"
+
+Configure recovery (auto-restart on crash)
+powershell
+sc.exe failure WineFilesApi `
+    reset= 86400 `
+    actions= restart/5000/restart/10000/restart/30000
+This means: restart after 5s, then 10s, then 30s; reset the counter after 24h.
+
+Optional — run as a specific user
+If the service needs access to network shares or a specific user's files:
+
+powershell
+sc.exe config WineFilesApi obj= "DOMAIN\svc_winefiles" password= "password"
+Otherwise it runs as LocalSystem (has local admin — fine for most cases).
+
+Step 2 — Start the service
+powershell
+sc.exe start WineFilesApi
+
+Step 3 — Open the firewall port
+If you want the API reachable from other machines on your LAN, open port 5000:
+
+powershell
+# Run as Administrator
+New-NetFirewallRule `
+    -DisplayName "WineFilesApi HTTP (5000)" `
+    -Direction Inbound `
+    -Protocol TCP `
+    -LocalPort 5000 `
+    -Action Allow
+	
+	

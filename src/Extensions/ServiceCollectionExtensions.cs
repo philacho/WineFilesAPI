@@ -19,6 +19,9 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IDataRepository, DataRepository>();
 
+        services.AddScoped<IBlendQueryRepository, BlendQueryRepository>(); 
+        services.AddScoped<IVesselQueryRepository, VesselQueryRepository>(); 
+
         return services;
     }
 
@@ -31,6 +34,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPmIndexService, PmIndexService>();
 
         services.AddScoped<IDataRepository, DataRepository>();
+
+        services.AddScoped<IBlendQueryService, BlendQueryService>(); 
+        services.AddScoped<IVesselQueryService, VesselQueryService>(); 
 
         return services;
     }

@@ -55,6 +55,7 @@ secrets.json
 *.log
 logs/
 log.txt
+*.log
 
 # ---------- OS ----------
 .DS_Store

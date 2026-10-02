@@ -3,24 +3,8 @@
   "WorkspaceRootPath": "C:\\TSS\\Pete\\WineFilesApi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|c:\\tss\\pete\\winefilesapi\\src\\application\\interfaces\\idatarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|solutionrelative:src\\application\\interfaces\\idatarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|c:\\tss\\pete\\winefilesapi\\src\\infrastructure\\repositories\\datarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|solutionrelative:src\\infrastructure\\repositories\\datarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|c:\\tss\\pete\\winefilesapi\\src\\api\\controllers\\datacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|solutionrelative:src\\api\\controllers\\datacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|c:\\tss\\pete\\winefilesapi\\src\\infrastructure\\data\\sqlvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|solutionrelative:src\\infrastructure\\data\\sqlvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|c:\\tss\\pete\\winefilesapi\\src\\application\\dtos\\getdatarequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|solutionrelative:src\\application\\dtos\\getdatarequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|c:\\tss\\pete\\winefilesapi\\src\\extensions\\servicecollectionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|solutionrelative:src\\extensions\\servicecollectionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -47,66 +31,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "IDataRepository.cs",
-              "DocumentMoniker": "C:\\TSS\\Pete\\WineFilesApi\\src\\Application\\Interfaces\\IDataRepository.cs",
-              "RelativeDocumentMoniker": "src\\Application\\Interfaces\\IDataRepository.cs",
-              "ToolTip": "C:\\TSS\\Pete\\WineFilesApi\\src\\Application\\Interfaces\\IDataRepository.cs",
-              "RelativeToolTip": "src\\Application\\Interfaces\\IDataRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAeAAAAAAAAAA==",
+              "Title": "ServiceCollectionExtensions.cs",
+              "DocumentMoniker": "C:\\TSS\\Pete\\WineFilesApi\\src\\Extensions\\ServiceCollectionExtensions.cs",
+              "RelativeDocumentMoniker": "src\\Extensions\\ServiceCollectionExtensions.cs",
+              "ToolTip": "C:\\TSS\\Pete\\WineFilesApi\\src\\Extensions\\ServiceCollectionExtensions.cs",
+              "RelativeToolTip": "src\\Extensions\\ServiceCollectionExtensions.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACYAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T22:23:17.684Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DataController.cs",
-              "DocumentMoniker": "C:\\TSS\\Pete\\WineFilesApi\\src\\Api\\Controllers\\DataController.cs",
-              "RelativeDocumentMoniker": "src\\Api\\Controllers\\DataController.cs",
-              "ToolTip": "C:\\TSS\\Pete\\WineFilesApi\\src\\Api\\Controllers\\DataController.cs",
-              "RelativeToolTip": "src\\Api\\Controllers\\DataController.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAADgAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T22:20:11.973Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SqlValidator.cs",
-              "DocumentMoniker": "C:\\TSS\\Pete\\WineFilesApi\\src\\Infrastructure\\Data\\SqlValidator.cs",
-              "RelativeDocumentMoniker": "src\\Infrastructure\\Data\\SqlValidator.cs",
-              "ToolTip": "C:\\TSS\\Pete\\WineFilesApi\\src\\Infrastructure\\Data\\SqlValidator.cs",
-              "RelativeToolTip": "src\\Infrastructure\\Data\\SqlValidator.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAAAgAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T22:16:35.015Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DataRepository.cs",
-              "DocumentMoniker": "C:\\TSS\\Pete\\WineFilesApi\\src\\Infrastructure\\Repositories\\DataRepository.cs",
-              "RelativeDocumentMoniker": "src\\Infrastructure\\Repositories\\DataRepository.cs",
-              "ToolTip": "C:\\TSS\\Pete\\WineFilesApi\\src\\Infrastructure\\Repositories\\DataRepository.cs",
-              "RelativeToolTip": "src\\Infrastructure\\Repositories\\DataRepository.cs",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAAAHoAAABAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T22:14:53.402Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "GetDataRequest.cs",
-              "DocumentMoniker": "C:\\TSS\\Pete\\WineFilesApi\\src\\Application\\DTOs\\GetDataRequest.cs",
-              "RelativeDocumentMoniker": "src\\Application\\DTOs\\GetDataRequest.cs",
-              "ToolTip": "C:\\TSS\\Pete\\WineFilesApi\\src\\Application\\DTOs\\GetDataRequest.cs",
-              "RelativeToolTip": "src\\Application\\DTOs\\GetDataRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-01T22:00:03.293Z",
+              "WhenOpened": "2026-10-02T09:31:39.323Z",
               "EditorCaption": ""
             }
           ]

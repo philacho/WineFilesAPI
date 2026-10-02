@@ -1,7 +1,24 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\TSS\\Pete\\WineFilesApi\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|c:\\tss\\pete\\winefilesapi\\src\\infrastructure\\repositories\\blendqueryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|solutionrelative:src\\infrastructure\\repositories\\blendqueryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|c:\\tss\\pete\\winefilesapi\\src\\application\\services\\blendqueryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|solutionrelative:src\\application\\services\\blendqueryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|c:\\tss\\pete\\winefilesapi\\src\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|solutionrelative:src\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|c:\\tss\\pete\\winefilesapi\\src\\extensions\\servicecollectionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{99E33D36-9679-FC8C-6E5B-DD903DF0FC50}|src\\WineFilesApi.csproj|solutionrelative:src\\extensions\\servicecollectionextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +39,58 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BlendQueryRepository.cs",
+              "DocumentMoniker": "C:\\TSS\\Pete\\WineFilesApi\\src\\Infrastructure\\Repositories\\BlendQueryRepository.cs",
+              "RelativeDocumentMoniker": "src\\Infrastructure\\Repositories\\BlendQueryRepository.cs",
+              "ToolTip": "C:\\TSS\\Pete\\WineFilesApi\\src\\Infrastructure\\Repositories\\BlendQueryRepository.cs*",
+              "RelativeToolTip": "src\\Infrastructure\\Repositories\\BlendQueryRepository.cs*",
+              "ViewState": "AgIAACQAAAAAAAAAAAAgwDgAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-02T09:39:05.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BlendQueryService.cs",
+              "DocumentMoniker": "C:\\TSS\\Pete\\WineFilesApi\\src\\Application\\Services\\BlendQueryService.cs",
+              "RelativeDocumentMoniker": "src\\Application\\Services\\BlendQueryService.cs",
+              "ToolTip": "C:\\TSS\\Pete\\WineFilesApi\\src\\Application\\Services\\BlendQueryService.cs",
+              "RelativeToolTip": "src\\Application\\Services\\BlendQueryService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-02T09:38:48.217Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\TSS\\Pete\\WineFilesApi\\src\\appsettings.json",
+              "RelativeDocumentMoniker": "src\\appsettings.json",
+              "ToolTip": "C:\\TSS\\Pete\\WineFilesApi\\src\\appsettings.json",
+              "RelativeToolTip": "src\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-10-02T09:36:29.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ServiceCollectionExtensions.cs",
+              "DocumentMoniker": "C:\\TSS\\Pete\\WineFilesApi\\src\\Extensions\\ServiceCollectionExtensions.cs",
+              "RelativeDocumentMoniker": "src\\Extensions\\ServiceCollectionExtensions.cs",
+              "ToolTip": "C:\\TSS\\Pete\\WineFilesApi\\src\\Extensions\\ServiceCollectionExtensions.cs",
+              "RelativeToolTip": "src\\Extensions\\ServiceCollectionExtensions.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACYAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-02T09:31:39.323Z",
+              "EditorCaption": ""
             }
           ]
         }
